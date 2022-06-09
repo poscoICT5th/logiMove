@@ -18,6 +18,7 @@ import Pack.vo.TestVo;
 import Pack.service.MoveService;
 import Pack.service.TestService;
 import Pack.vo.LogiMoveDTO;
+import Pack.vo.LogiMoveDeleteList;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -59,6 +60,14 @@ public class MainController {
 		System.out.println("post 들어감");
 		System.out.println(data); 
 		int result = moveService.insert(data);
+		return result==1?true:false;
+	}
+	
+	@DeleteMapping("/move")
+	public boolean moveDeletes(@RequestBody LogiMoveDeleteList logiMoveDeleteList) {
+		System.out.println("delete List");
+		System.out.println(logiMoveDeleteList);
+		int result = moveService.deletes(logiMoveDeleteList);
 		return result==1?true:false;
 	}
 	

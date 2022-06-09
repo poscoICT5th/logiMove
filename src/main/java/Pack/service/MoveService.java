@@ -2,11 +2,13 @@ package Pack.service;
 
 import java.util.List;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Pack.mapper.MoveMapper;
 import Pack.vo.LogiMoveDTO;
+import Pack.vo.LogiMoveDeleteList;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -14,6 +16,8 @@ import Pack.vo.LogiMoveVo;
 public class MoveService {
     @Autowired
     public MoveMapper moveMapper;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     public List<LogiMoveVo> selectAll() {
         return moveMapper.selectAll();
@@ -44,7 +48,17 @@ public class MoveService {
 			return moveMapper.confirm(instructionNo);			
 		} else {
 			System.out.println("이동중인 친구 들어옴");
-			return moveMapper.processing(instructionNo);						
+			int result = moveMapper.processing(instructionNo);
+			if (result > 0) {
+				LogiMoveVo moveConfirmData = selectByInstNo(instructionNo);
+				System.out.println(moveConfirmData);
+				rabbitTemplate.convertAndSend("posco", "move.Inventory.update", moveConfirmData);			
+			}
+			return result;						
 		}
+	}
+
+	public int deletes(LogiMoveDeleteList logiMoveDeleteList) {
+		return moveMapper.deletes(logiMoveDeleteList);
 	}
 }

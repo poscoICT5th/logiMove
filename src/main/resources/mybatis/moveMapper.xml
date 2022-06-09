@@ -17,17 +17,17 @@
     	select *
     	from Move
     	where
-    	<if test='status != null and status neq ""'>status=#{status} and</if>
-    	<if test='location != null and location neq ""'>location=#{location} and</if>
-    	<if test='instruction_no != null and instruction_no neq ""'>instruction_no=#{instruction_no} and</if>
-    	<if test='lot_no != null and lot_no neq ""'>lot_no like CONCAT('%',#{lot_no},'%') and</if>
-    	<if test='item_no != null and item_no neq ""'>item_no like CONCAT('%',#{item_no},'%') and</if>
-    	<if test='item_name != null and item_name neq ""'>item_name=#{item_name} and</if>
-    	<if test='from_warehouse != null and from_warehouse neq ""'>from_warehouse=#{from_warehouse} and</if>
-    	<if test='to_warehouse != null and to_warehouse neq ""'>to_warehouse=#{to_warehouse} and</if>
-    	<if test='inst_reg_date != null and inst_reg_date neq ""'>inst_reg_date=#{inst_reg_date} and</if>
-    	<if test='inst_deadline != null and inst_deadline neq ""'>inst_deadline=#{inst_deadline} and</if>
-    	<if test='done_date != null and done_date neq ""'>done_date=#{done_date} and</if>
+    	<if test='status != null and status neq "전체보기"'>status=#{status} and</if>
+    	<if test='location != null and location neq "전체보기"'>location=#{location} and</if>
+    	<if test='instruction_no != null and instruction_no neq "전체보기"'>instruction_no=#{instruction_no} and</if>
+    	<if test='lot_no != null and lot_no neq "전체보기"'>lot_no like CONCAT('%',#{lot_no},'%') and</if>
+    	<if test='item_no != null and item_no neq "전체보기"'>item_no like CONCAT('%',#{item_no},'%') and</if>
+    	<if test='item_name != null and item_name neq "전체보기"'>item_name=#{item_name} and</if>
+    	<if test='from_warehouse != null and from_warehouse neq "전체보기"'>from_warehouse=#{from_warehouse} and</if>
+    	<if test='to_warehouse != null and to_warehouse neq "전체보기"'>to_warehouse=#{to_warehouse} and</if>
+    	<if test='inst_reg_date != null and inst_reg_date neq "전체보기"'>inst_reg_date=#{inst_reg_date} and</if>
+    	<if test='inst_deadline != null and inst_deadline neq "전체보기"'>inst_deadline=#{inst_deadline} and</if>
+    	<if test='done_date != null and done_date neq "전체보기"'>done_date=#{done_date} and</if>
     	(width between #{min_width} and #{max_width}) and
     	(weight between #{min_weight} and #{max_weight}) and
     	(thickness between #{min_thickness} and #{max_thickness}) and
@@ -63,6 +63,14 @@
 		from Move
 		where instruction_no=#{instructionNo};
     </delete>
+        
+    <delete id="deletes" parameterType="List">
+    	<foreach collection="logiMoveDeleteList" item="instructionNo" index="index">
+		    delete
+			from Move
+			where instruction_no=#{instructionNo};
+		</foreach>
+    </delete>
     
     <update id="processing" parameterType="String">
     	UPDATE Move 
@@ -72,7 +80,7 @@
     
     <update id="confirm" parameterType="String">
     	UPDATE Move 
-    	SET status = "이동완료" 
+    	SET status = "이동완료", done_date= now() 
     	WHERE instruction_no=#{instructionNo};
     </update>
     
