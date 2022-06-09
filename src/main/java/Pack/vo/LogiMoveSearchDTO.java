@@ -1,13 +1,19 @@
 package Pack.vo;
 
+import java.text.SimpleDateFormat;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @ToString 
 @Getter
 @Setter
-public class LogiMoveVo {
+//@AllArgsConstructor
+//@NoArgsConstructor
+public class LogiMoveSearchDTO {
 	String status;
 	String location;
 	String instruction_no;

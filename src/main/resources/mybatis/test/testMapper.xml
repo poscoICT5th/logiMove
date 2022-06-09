@@ -4,10 +4,5 @@
 <mapper namespace="Pack.mapper.TestMapper">
     <select id="selectTest"  resultType="TestVo">
         SELECT 'Test123331' AS NAME
-    </select>
-    
-    <select id="selectAll"  resultType="LogiMoveVo">
-        SELECT * from Move
-    </select>
-    
+    </select>    
 </mapper>
