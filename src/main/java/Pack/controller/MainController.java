@@ -66,7 +66,7 @@ public class MainController {
 	@DeleteMapping("/move")
 	public boolean moveDeletes(@RequestBody LogiMoveDeleteList logiMoveDeleteList) {
 		System.out.println("delete List");
-		System.out.println(logiMoveDeleteList);
+		System.out.println(logiMoveDeleteList.toString());
 		int result = moveService.deletes(logiMoveDeleteList);
 		return result==1?true:false;
 	}
