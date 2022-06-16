@@ -8,17 +8,18 @@ import lombok.ToString;
 @Getter
 @Setter
 public class LogiMoveVo {
-	String status;
-	String location;
 	String instruction_no;
+	String status;
 	String lot_no;
-	String item_no;
+	String item_code;
 	String item_name;
-	float width;
+	int move_amount;
+	String unit;
 	float weight;
+	float width;
 	float thickness;
 	float height;
-	int move_amount;
+	String location;
 	String from_warehouse;
 	String to_warehouse;
 	String inst_reg_date;

@@ -21,15 +21,15 @@
     	<if test='location != null and location neq "전체보기"'>location=#{location} and</if>
     	<if test='instruction_no != null and instruction_no neq "전체보기"'>instruction_no=#{instruction_no} and</if>
     	<if test='lot_no != null and lot_no neq "전체보기"'>lot_no like CONCAT('%',#{lot_no},'%') and</if>
-    	<if test='item_no != null and item_no neq "전체보기"'>item_no like CONCAT('%',#{item_no},'%') and</if>
+    	<if test='item_code != null and item_code neq "전체보기"'>item_code like CONCAT('%',#{item_code},'%') and</if>
     	<if test='item_name != null and item_name neq "전체보기"'>item_name=#{item_name} and</if>
     	<if test='from_warehouse != null and from_warehouse neq "전체보기"'>from_warehouse=#{from_warehouse} and</if>
     	<if test='to_warehouse != null and to_warehouse neq "전체보기"'>to_warehouse=#{to_warehouse} and</if>
     	<if test='inst_reg_date != null and inst_reg_date neq "전체보기"'>inst_reg_date=#{inst_reg_date} and</if>
     	<if test='inst_deadline != null and inst_deadline neq "전체보기"'>inst_deadline=#{inst_deadline} and</if>
     	<if test='done_date != null and done_date neq "전체보기"'>done_date=#{done_date} and</if>
-    	(width between #{min_width} and #{max_width}) and
     	(weight between #{min_weight} and #{max_weight}) and
+    	(width between #{min_width} and #{max_width}) and
     	(thickness between #{min_thickness} and #{max_thickness}) and
     	(height between #{min_height} and #{max_height}) and
     	(move_amount between #{min_move_amount} and #{max_move_amount})
@@ -39,17 +39,18 @@
         INSERT
         INTO Move 
         VALUES (
-        	#{status},
-        	#{location},
         	#{instruction_no},
+        	#{status},
         	#{lot_no},
-        	#{item_no},
+        	#{item_code},
         	#{item_name},
-        	#{width},
+        	#{move_amount},
+        	#{unit},
         	#{weight},
+        	#{width},
         	#{thickness},
         	#{height},
-        	#{move_amount},
+        	#{location},
         	#{from_warehouse},
         	#{to_warehouse},
         	#{inst_reg_date},
