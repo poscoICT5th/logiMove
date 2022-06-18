@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableEurekaClient
 public class LogiMoveApplication extends SpringBootServletInitializer{
-	
 	// war deploy
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
