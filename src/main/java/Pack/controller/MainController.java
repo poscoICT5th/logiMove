@@ -85,7 +85,7 @@ public class MainController {
 		return result==1?true:false;
 	}
 	
-	@GetMapping("/inst/{lotNo}")
+	@GetMapping("/lotno/{lotNo}")
 	public LogiMoveVo selectByLotNo(@PathVariable String lotNo) {
 		System.out.println(lotNo);
 		LogiMoveVo result = moveService.selectByLotNo(lotNo);
