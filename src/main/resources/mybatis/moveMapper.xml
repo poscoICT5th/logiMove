@@ -84,5 +84,9 @@
     	SET status = "이동완료", done_date= now() 
     	WHERE instruction_no=#{instructionNo};
     </update>
-    
+    <select id="selectByLotNo" parameterType="String" resultType="LogiMoveVo">
+        SELECT * 
+        from Move
+        where lot_no=#{lot_no};
+    </select>
 </mapper>

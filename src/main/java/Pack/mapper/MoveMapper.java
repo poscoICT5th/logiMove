@@ -28,4 +28,6 @@ public interface MoveMapper {
 	int processing(String instructionNo);
 
 	int deletes(LogiMoveDeleteList logiMoveDeleteList);
+
+	LogiMoveVo selectByLotNo(String lotNo);
 }

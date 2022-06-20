@@ -61,4 +61,8 @@ public class MoveService {
 	public int deletes(LogiMoveDeleteList logiMoveDeleteList) {
 		return moveMapper.deletes(logiMoveDeleteList);
 	}
+
+	public LogiMoveVo selectByLotNo(String lotNo) {
+		return moveMapper.selectByLotNo(lotNo);
+	}
 }
