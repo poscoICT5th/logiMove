@@ -84,4 +84,11 @@ public class MainController {
 		int result = moveService.change(instructionNo);
 		return result==1?true:false;
 	}
+	
+	@GetMapping("/inst/{lotNo}")
+	public LogiMoveVo selectByLotNo(@PathVariable String lotNo) {
+		System.out.println(lotNo);
+		LogiMoveVo result = moveService.selectByLotNo(lotNo);
+		return result;
+	}
 }
