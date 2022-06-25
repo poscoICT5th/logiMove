@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import Pack.mapper.MoveMapper;
 import Pack.vo.LogiMoveDTO;
-import Pack.vo.LogiMoveDeleteList;
+import Pack.vo.LogiMoveList;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -58,11 +58,19 @@ public class MoveService {
 		}
 	}
 
-	public int deletes(LogiMoveDeleteList logiMoveDeleteList) {
-		return moveMapper.deletes(logiMoveDeleteList);
+	public int deletes(LogiMoveList logiMoveList) {
+		return moveMapper.deletes(logiMoveList);
 	}
 
 	public LogiMoveVo selectByLotNo(String lotNo) {
 		return moveMapper.selectByLotNo(lotNo);
+	}
+
+	public int cancels(LogiMoveList logiMoveList) {
+		return moveMapper.cancels(logiMoveList);
+	}
+
+	public int rollback(LogiMoveList logiMoveList) {
+		return moveMapper.rollback(logiMoveList);
 	}
 }

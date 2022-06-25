@@ -78,6 +78,22 @@
     	SET status = "이동중" 
     	WHERE instruction_no=#{instructionNo};
     </update>
+        
+    <update id="cancels" parameterType="List">
+    	<foreach collection="logiMoveList" item="instructionNo" index="index">
+		    update Move
+		    SET status = "이동취소"
+			where instruction_no=#{instructionNo};
+		</foreach>
+    </update>
+    
+    <update id="rollback" parameterType="List">
+    	<foreach collection="logiMoveList" item="instructionNo" index="index">
+		    update Move
+		    SET status = "이동예정"
+			where instruction_no=#{instructionNo};
+		</foreach>
+    </update>
     
     <update id="confirm" parameterType="String">
     	UPDATE Move 

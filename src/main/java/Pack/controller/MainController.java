@@ -18,7 +18,7 @@ import Pack.vo.TestVo;
 import Pack.service.MoveService;
 import Pack.service.TestService;
 import Pack.vo.LogiMoveDTO;
-import Pack.vo.LogiMoveDeleteList;
+import Pack.vo.LogiMoveList;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -64,10 +64,18 @@ public class MainController {
 	}
 	
 	@DeleteMapping("/move")
-	public boolean moveDeletes(@RequestBody LogiMoveDeleteList logiMoveDeleteList) {
+	public boolean moveDeletes(@RequestBody LogiMoveList logiMoveList) {
 		System.out.println("delete List");
-		System.out.println(logiMoveDeleteList.toString());
-		int result = moveService.deletes(logiMoveDeleteList);
+		System.out.println(logiMoveList.toString());
+		int result = moveService.cancels(logiMoveList);
+		return result==1?true:false;
+	}
+	
+	@PutMapping("/move/rollback")
+	public boolean importRollbacks(@RequestBody LogiMoveList logiMoveList) {
+		System.out.println("rollback List");
+		System.out.println(logiMoveList);
+		int result = moveService.rollback(logiMoveList);
 		return result==1?true:false;
 	}
 	
