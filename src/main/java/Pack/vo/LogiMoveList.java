@@ -9,6 +9,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class LogiMoveDeleteList {
-	List<String> logiMoveDeleteList;
+public class LogiMoveList {
+	List<String> logiMoveList;
 }

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import Pack.vo.LogiMoveDTO;
-import Pack.vo.LogiMoveDeleteList;
+import Pack.vo.LogiMoveList;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -27,7 +27,11 @@ public interface MoveMapper {
 
 	int processing(String instructionNo);
 
-	int deletes(LogiMoveDeleteList logiMoveDeleteList);
+	int deletes(LogiMoveList logiMoveList);
 
 	LogiMoveVo selectByLotNo(String lotNo);
+
+	int cancels(LogiMoveList logiMoveList);
+
+	int rollback(LogiMoveList logiMoveList);
 }
