@@ -2,6 +2,7 @@ package Pack.controller;
 
 import java.util.List;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,8 @@ public class MainController {
 	TestService testService;
 	@Autowired
 	MoveService moveService;
+	@Autowired
+	RabbitTemplate rabbitTemplate;
 	
 	@GetMapping("/test")
 	public List test() {
@@ -60,6 +63,9 @@ public class MainController {
 		System.out.println("post 들어감");
 		System.out.println(data); 
 		int result = moveService.insert(data);
+		if (result > 0) {
+			rabbitTemplate.convertAndSend("posco", "move.Inventory.process", data);
+		}
 		return result==1?true:false;
 	}
 	
@@ -68,6 +74,12 @@ public class MainController {
 		System.out.println("delete List");
 		System.out.println(logiMoveList.toString());
 		int result = moveService.cancels(logiMoveList);
+		if (result > 0) {
+			for (String instructionNo : logiMoveList.getLogiMoveList()) {
+				LogiMoveVo deleteMoveDTO = moveService.selectByInstNo(instructionNo);
+				rabbitTemplate.convertAndSend("posco", "move.Inventory.done", deleteMoveDTO);
+			}
+		}
 		return result==1?true:false;
 	}
 	
@@ -82,7 +94,11 @@ public class MainController {
 	@DeleteMapping("move/{instructionNo}")
 	public boolean moveDelete(@PathVariable String instructionNo) {
 		System.out.println(instructionNo);
+		LogiMoveVo moveDeleteData = moveService.selectByInstNo(instructionNo);
 		int result = moveService.delete(instructionNo);
+		if (result > 0 ) {
+			rabbitTemplate.convertAndSend("posco", "move.Inventory.done", moveDeleteData);
+		}
 		return result==1?true:false;
 	}
 	
