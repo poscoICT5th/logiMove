@@ -37,7 +37,7 @@ public class LogiMoveDTO {
 			String to_warehouse, String inst_deadline, String done_date, String after_lot_no) {
 		super();
 		long curTime = System.currentTimeMillis();
-		String makeDate = new SimpleDateFormat("YYMMddHHmmssms").format(curTime);
+		String makeDate = new SimpleDateFormat("YYMMddHHmmssSSS").format(curTime);
 		this.instruction_no = makeDate;
 		this.status = "이동예정";
 		this.lot_no = lot_no;

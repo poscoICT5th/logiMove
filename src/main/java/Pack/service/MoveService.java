@@ -53,6 +53,7 @@ public class MoveService {
 				LogiMoveVo moveConfirmData = selectByInstNo(instructionNo);
 				System.out.println(moveConfirmData);
 				rabbitTemplate.convertAndSend("posco", "move.Inventory.update", moveConfirmData);			
+				rabbitTemplate.convertAndSend("posco", "move.Inventory.done", moveConfirmData);			
 			}
 			return result;						
 		}
