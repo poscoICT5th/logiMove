@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import Pack.vo.LogiMoveDTO;
 import Pack.vo.LogiMoveList;
+import Pack.vo.LogiMoveMulti;
+import Pack.vo.LogiMoveMultiDTO;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -34,4 +36,6 @@ public interface MoveMapper {
 	int cancels(LogiMoveList logiMoveList);
 
 	int rollback(LogiMoveList logiMoveList);
+
+	int inserts(LogiMoveMulti logiMoveMulti);
 }

@@ -59,6 +59,32 @@
         );
     </insert>
     
+    <insert id="inserts" parameterType="LogiMoveMulti">
+    	<foreach collection="logiMoveList" item="item" index="index">
+	        INSERT
+	        INTO Move 
+	        VALUES (
+	        	#{item.instruction_no},
+	        	#{item.status},
+	        	#{item.lot_no},
+	        	#{item.item_code},
+	        	#{item.item_name},
+	        	#{item.move_amount},
+	        	#{item.unit},
+	        	#{item.weight},
+	        	#{item.width},
+	        	#{item.thickness},
+	        	#{item.height},
+	        	#{item.location},
+	        	#{item.from_warehouse},
+	        	#{to_warehouse},
+	        	#{item.inst_reg_date},
+	        	#{item.inst_deadline},
+	        	#{item.done_date}
+	        );
+        </foreach>
+    </insert>
+    
     <delete id="delete" parameterType="String">
 	    delete
 		from Move
