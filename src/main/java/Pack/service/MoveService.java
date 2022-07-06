@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import Pack.mapper.MoveMapper;
 import Pack.vo.LogiMoveDTO;
 import Pack.vo.LogiMoveList;
+import Pack.vo.LogiMoveMulti;
+import Pack.vo.LogiMoveMultiDTO;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -37,6 +39,12 @@ public class MoveService {
 		return moveMapper.insert(logiMoveDTO);
 	}
 
+	public int inserts(LogiMoveMulti logiMoveMulti) {
+		System.out.println(5555);
+		System.out.println(logiMoveMulti);
+		return moveMapper.inserts(logiMoveMulti);
+	}
+	
 	public int delete(String instructionNo) {
 		return moveMapper.delete(instructionNo);
 	}

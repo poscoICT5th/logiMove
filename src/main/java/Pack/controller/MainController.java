@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import Pack.vo.TestVo;
+import Pack.service.AutoIncrese;
 import Pack.service.MoveService;
 import Pack.service.TestService;
 import Pack.vo.LogiMoveDTO;
 import Pack.vo.LogiMoveList;
+import Pack.vo.LogiMoveMulti;
+import Pack.vo.LogiMoveMultiDTO;
 import Pack.vo.LogiMoveSearchDTO;
 import Pack.vo.LogiMoveVo;
 
@@ -69,6 +72,20 @@ public class MainController {
 		return result==1?true:false;
 	}
 	
+	@PostMapping("/move/multi")
+	public boolean moveAdds(@RequestBody LogiMoveMulti logiMoveMulti) {
+		System.out.println("post 들어감");
+		System.out.println(logiMoveMulti); 
+		int result = moveService.inserts(logiMoveMulti);
+		AutoIncrese.setNum();
+		if (result > 0) {
+			for (LogiMoveMultiDTO logiMoveMultiDTO : logiMoveMulti.getLogiMoveList()) {
+			rabbitTemplate.convertAndSend("posco", "move.Inventory.process", logiMoveMultiDTO);
+			}
+		}
+		return result>0?true:false;
+	}
+	
 	@DeleteMapping("/move")
 	public boolean moveDeletes(@RequestBody LogiMoveList logiMoveList) {
 		System.out.println("delete List");
@@ -88,6 +105,12 @@ public class MainController {
 		System.out.println("rollback List");
 		System.out.println(logiMoveList);
 		int result = moveService.rollback(logiMoveList);
+		if (result > 0) {
+			for (String instructionNo : logiMoveList.getLogiMoveList()) {
+				LogiMoveVo rollbackMoveDTO = moveService.selectByInstNo(instructionNo);
+				rabbitTemplate.convertAndSend("posco", "move.Inventory.process", rollbackMoveDTO);
+			}
+		}
 		return result==1?true:false;
 	}
 	
