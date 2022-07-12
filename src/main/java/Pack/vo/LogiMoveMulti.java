@@ -12,4 +12,5 @@ import lombok.ToString;
 public class LogiMoveMulti {
 	List<LogiMoveMultiDTO> logiMoveList;
 	String to_warehouse;
+	String inst_deadline;
 }
