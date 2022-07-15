@@ -4,7 +4,8 @@
 <mapper namespace="Pack.mapper.MoveMapper">    
     <select id="selectAll" resultType="LogiMoveVo">
         SELECT * 
-        from Move;
+        from Move
+        order by inst_reg_date desc;
     </select>
     
     <select id="selectByInstNo" parameterType="String" resultType="LogiMoveVo">
@@ -33,6 +34,7 @@
     	(thickness between #{min_thickness} and #{max_thickness}) and
     	(height between #{min_height} and #{max_height}) and
     	(move_amount between #{min_move_amount} and #{max_move_amount})
+    	order by inst_reg_date desc;
     </select>
     
     <insert id="insert" parameterType="LogiMoveDTO">
