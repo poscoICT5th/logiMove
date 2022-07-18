@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import Pack.vo.TestVo;
@@ -77,10 +78,12 @@ public class MainController {
 		System.out.println("post 들어감");
 		System.out.println(logiMoveMulti); 
 		int result = moveService.inserts(logiMoveMulti);
+		RestTemplate restTemplate = new RestTemplate();
 		AutoIncrese.setNum();
 		if (result > 0) {
 			for (LogiMoveMultiDTO logiMoveMultiDTO : logiMoveMulti.getLogiMoveList()) {
 			rabbitTemplate.convertAndSend("posco", "move.Inventory.process", logiMoveMultiDTO);
+			restTemplate.getForEntity("http://35.77.54.132:8080/hotline/send/type/"+"이동"+"/topic/" + logiMoveMultiDTO.getFrom_warehouse(), String.class);
 			}
 		}
 		return result>0?true:false;
