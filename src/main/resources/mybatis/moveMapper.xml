@@ -26,9 +26,9 @@
     	<if test='item_name != null and item_name neq "전체보기"'>item_name=#{item_name} and</if>
     	<if test='from_warehouse != null and from_warehouse neq "전체보기"'>from_warehouse=#{from_warehouse} and</if>
     	<if test='to_warehouse != null and to_warehouse neq "전체보기"'>to_warehouse=#{to_warehouse} and</if>
-    	<if test='inst_reg_date != null and inst_reg_date neq "전체보기"'>inst_reg_date=#{inst_reg_date} and</if>
-    	<if test='inst_deadline != null and inst_deadline neq "전체보기"'>inst_deadline=#{inst_deadline} and</if>
-    	<if test='done_date != null and done_date neq "전체보기"'>done_date=#{done_date} and</if>
+    	<if test='inst_reg_date != null and inst_reg_date neq "전체보기"'>inst_reg_date like CONCAT('%',#{inst_reg_date},'%') and</if>
+    	<if test='inst_deadline != null and inst_deadline neq "전체보기"'>inst_deadline like CONCAT('%',#{inst_deadline},'%') and</if>
+    	<if test='done_date != null and done_date neq "전체보기"'>done_date like CONCAT('%',#{done_date},'%') and</if>
     	(weight between #{min_weight} and #{max_weight}) and
     	(width between #{min_width} and #{max_width}) and
     	(thickness between #{min_thickness} and #{max_thickness}) and
