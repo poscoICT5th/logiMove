@@ -53,7 +53,7 @@ public class LogiMoveMultiDTO {
 		this.location = location;
 		this.from_warehouse = warehouse_code;
 		this.to_warehouse = to_warehouse;
-		this.inst_reg_date = new SimpleDateFormat("YYYY-MM-dd").format(curTime);
+		this.inst_reg_date = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(curTime);
 		this.inst_deadline = inst_deadline;
 		this.done_date = done_date;
 		this.after_lot_no = makeDate;
